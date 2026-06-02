@@ -1,0 +1,164 @@
+<mat-toolbar color="primary" class="app-toolbar" data-test="app-toolbar">
+  <mat-icon>checklist</mat-icon>
+  <span class="title">To-Do List</span>
+</mat-toolbar>
+
+<main class="container">
+  <mat-card class="add-card">
+    <mat-card-header>
+      <mat-card-title>New task</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="add-form">
+      <mat-form-field appearance="outline" class="grow">
+        <mat-label>What do you need to do?</mat-label>
+        <input
+          matInput
+          name="newText"
+          data-test="new-task-text"
+          [(ngModel)]="newText"
+          (keyup.enter)="add()"
+          placeholder="Buy groceries"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="date">
+        <mat-label>Due date (optional)</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          name="newDate"
+          data-test="new-task-date"
+          [(ngModel)]="newDueDate"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        data-test="add-task-button"
+        (click)="add()"
+        [disabled]="atLimit()"
+        [matTooltip]="atLimit() ? 'Limit of ' + maxTodos + ' tasks reached' : ''"
+      >
+        <mat-icon>add</mat-icon>
+        Add
+      </button>
+    </mat-card-content>
+    @if (atLimit()) {
+      <mat-card-content class="limit-hint" data-test="limit-hint">
+        You have reached the limit of {{ maxTodos }} tasks. Delete one to create another.
+      </mat-card-content>
+    }
+  </mat-card>
+
+  <mat-card class="list-card">
+    <mat-card-header>
+      <mat-card-title>
+        Tasks
+        <span class="count" data-test="task-count">({{ todos().length }}/{{ maxTodos }})</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (todos().length > 1) {
+        <div class="sort-row">
+          <span class="sort-label">Sort by</span>
+          <mat-button-toggle-group
+            [value]="sortField()"
+            (change)="setSortField($any($event.value))"
+            aria-label="Sort field"
+            data-test="sort-field"
+            hideSingleSelectionIndicator
+          >
+            <mat-button-toggle value="text" data-test="sort-by-text">Text</mat-button-toggle>
+            <mat-button-toggle value="dueDate" data-test="sort-by-due-date">Due date</mat-button-toggle>
+          </mat-button-toggle-group>
+          <button
+            mat-icon-button
+            (click)="toggleSortDirection()"
+            data-test="sort-direction"
+            [matTooltip]="sortDirection() === 'asc' ? 'Ascending' : 'Descending'"
+            aria-label="Toggle sort direction"
+          >
+            <mat-icon>
+              {{ sortDirection() === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+            </mat-icon>
+          </button>
+        </div>
+      }
+      @if (loading()) {
+        <div class="loading" data-test="loading">
+          <mat-progress-spinner mode="indeterminate" diameter="32"></mat-progress-spinner>
+        </div>
+      } @else if (todos().length === 0) {
+        <p class="empty" data-test="empty-state">No tasks yet. Add one above.</p>
+      } @else {
+        <ul class="todo-list" data-test="todo-list">
+          @for (todo of sortedTodos(); track todo.id) {
+            <li class="todo-row" [class.done]="todo.done" data-test="todo-item" [attr.data-test-id]="todo.id">
+              @if (editingId() === todo.id) {
+                <div class="edit-row">
+                  <mat-form-field appearance="outline" class="grow">
+                    <mat-label>Task</mat-label>
+                    <input
+                      matInput
+                      data-test="edit-task-text"
+                      [ngModel]="editBuffer().text"
+                      (ngModelChange)="updateEditText($event)"
+                      name="editText-{{ todo.id }}"
+                    />
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="date">
+                    <mat-label>Due date (optional)</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="editPicker"
+                      data-test="edit-task-date"
+                      [ngModel]="editBuffer().dueDate"
+                      (ngModelChange)="updateEditDate($event)"
+                      name="editDate-{{ todo.id }}"
+                    />
+                    <mat-datepicker-toggle
+                      matIconSuffix
+                      [for]="editPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #editPicker></mat-datepicker>
+                  </mat-form-field>
+                  <button mat-icon-button color="primary" data-test="save-edit-button" (click)="saveEdit(todo)" aria-label="Save">
+                    <mat-icon>check</mat-icon>
+                  </button>
+                  <button mat-icon-button data-test="cancel-edit-button" (click)="cancelEdit()" aria-label="Cancel">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              } @else {
+                <mat-checkbox
+                  data-test="toggle-done"
+                  [checked]="todo.done"
+                  (change)="toggleDone(todo, $event.checked)"
+                ></mat-checkbox>
+                <div class="todo-body">
+                  <div class="todo-text" data-test="todo-text">{{ todo.text }}</div>
+                  <div class="todo-meta" data-test="todo-due-date">
+                    @if (todo.dueDate) {
+                      Due {{ todo.dueDate | date: 'shortDate' }}
+                    } @else {
+                      No due date
+                    }
+                  </div>
+                </div>
+                <button mat-icon-button data-test="edit-button" (click)="startEdit(todo)" aria-label="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" data-test="delete-button" (click)="remove(todo)" aria-label="Delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              }
+            </li>
+          }
+        </ul>
+      }
+    </mat-card-content>
+  </mat-card>
+</main>

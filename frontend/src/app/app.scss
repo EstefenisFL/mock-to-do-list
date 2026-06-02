@@ -1,0 +1,118 @@
+.app-toolbar {
+  gap: 0.5rem;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+.title {
+  font-weight: 500;
+}
+
+.container {
+  max-width: 760px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-form {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 0.5rem;
+}
+
+.grow {
+  flex: 1 1 240px;
+}
+
+.date {
+  flex: 0 0 200px;
+}
+
+.count {
+  color: var(--mat-sys-on-surface-variant);
+  font-weight: 400;
+  margin-left: 0.25rem;
+}
+
+.limit-hint {
+  color: var(--mat-sys-error);
+  font-size: 0.85rem;
+  padding-top: 0;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.empty {
+  color: var(--mat-sys-on-surface-variant);
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.sort-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0 0.75rem;
+  flex-wrap: wrap;
+}
+
+.sort-label {
+  font-size: 0.9rem;
+  color: var(--mat-sys-on-surface-variant);
+  margin-right: 0.25rem;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.done .todo-text {
+    text-decoration: line-through;
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.todo-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.todo-text {
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.todo-meta {
+  font-size: 0.85rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.edit-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
