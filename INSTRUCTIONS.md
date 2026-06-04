@@ -122,7 +122,26 @@ Deliver your test plan as a **worksheet / spreadsheet** (Google Sheets, Excel `.
 - The Playwright **HTML report** is perfectly acceptable — include instructions to generate/open it, and/or commit the generated report.
 - A short written summary is a plus: how many tests, pass/fail, any **bugs or surprising behavior** you found, and your overall assessment of the app's quality.
 
-### 3.7 Anything else you think matters ➕
+### 3.7 AI usage disclosure 🤖
+- Using AI tools is **allowed and welcome** — but you must be transparent about it.
+- If you used AI to complete any part of this task, include a short write-up covering:
+  - **Which AI tools** you used (e.g. ChatGPT, Claude, Copilot, etc.).
+  - **How you approached the work** with them — what you delegated, what you did yourself, and how you reviewed/validated the output.
+- **Provide a copy of your conversation logs** (export or transcript) as part of your submission.
+- If you did **not** use AI, simply state that.
+
+> We're not penalizing AI use — we want to understand your process and confirm you can explain everything you deliver.
+
+### 3.8 Recorded screenshare walkthrough 🎥
+- Record a short **screenshare video** (voice-over) walking us through your project. Please cover:
+  - **Your overall approach** to the project.
+  - A **brief summary of your test plan**.
+  - An **overview of your Playwright (E2E) testing** approach and implementation.
+  - An **overview of your API testing** approach and implementation.
+- Keep it concise and focused (a tight ~5–15 minutes is plenty).
+- Include the video as a **shareable link** (e.g. Loom, Google Drive, YouTube unlisted) in your submission / PR description.
+
+### 3.9 Anything else you think matters ➕
 This is your space to shine. Optional ideas (none required):
 - Running tests in **CI** (e.g. a GitHub Actions workflow).
 - Cross-browser runs, parallelization, or trace/video on failure.
@@ -146,7 +165,7 @@ Finding and clearly reporting real issues is a strong positive signal.
 - ✅ **Do** write your own tests, helpers, config, README, and docs.
 - ✅ **Do** keep the app code itself unchanged (don't modify `backend/` or `frontend/` source to make tests pass).
 - ❌ **Don't** worry about authentication, real databases, or deploying anything.
-- You may use AI tools — but **you must understand and be able to explain every part** of what you deliver. We will discuss it with you.
+- You may use AI tools — but **you must understand and be able to explain every part** of what you deliver, and you must **disclose your AI usage and share your conversation logs** (see §3.7). We will discuss it with you.
 
 ---
 
@@ -156,7 +175,7 @@ Submit your work as a **branch + Pull Request**:
 
 - Create a **branch** off `main` (e.g. `qa/<your-name>`).
 - Place your test project in a clearly named folder (e.g. `qa-tests/` at the repo root) — keep it separate from `backend/` and `frontend/`.
-- Open a **Pull Request** against `main` and use the PR description as your cover note (summary of what you did, how to run it, and a link to your test report and worksheet).
+- Open a **Pull Request** against `main` and use the PR description as your cover note (summary of what you did, how to run it, and links to your test report, worksheet, **screenshare video** (§3.8), and **AI usage write-up + conversation logs** (§3.7)).
 - Make sure a reviewer can, from a clean checkout of your branch:
   1. Install dependencies.
   2. Start the app.
@@ -164,6 +183,16 @@ Submit your work as a **branch + Pull Request**:
   4. Run all tests.
   5. Open the report.
 - Document those exact steps in your test project's README.
+
+**Submission checklist** — make sure your PR includes:
+- [ ] E2E (Playwright) tests
+- [ ] API tests
+- [ ] Test plan worksheet
+- [ ] Seed file + seeding/reset mechanism
+- [ ] Test report
+- [ ] AI usage write-up + conversation logs (or a note that you didn't use AI)
+- [ ] Screenshare walkthrough video link
+- [ ] Test project README
 
 ---
 
@@ -178,6 +207,8 @@ Submit your work as a **branch + Pull Request**:
 | **Architecture** | Logical structure, reuse (fixtures/POM), centralized config, no duplication |
 | **Reporting** | A real report + a useful summary of results and findings |
 | **Communication** | Clear README & docs; bugs reported well; reasoning explained |
+| **AI transparency** | Honest disclosure of AI tools used, how, and conversation logs provided |
+| **Walkthrough video** | Clear narration of approach, test plan, and E2E/API implementation |
 | **Extras** | Thoughtful additions (CI, traces, a11y, etc.) |
 
 ---
