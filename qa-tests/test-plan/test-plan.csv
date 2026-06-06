@@ -1,0 +1,25 @@
+ID,Category,Scenario,Precondition,Steps,Expected result,Severity,Priority,Status
+1,API - List,List all when empty,API running and todos.json is [],GET /todos/list,Returns 200 and an empty array,High,Critical,Not run
+2,API - Create,Create with text and dueDate,API running,POST /todos/create with {"text":"Test","dueDate":"2026-12-31"},Returns 201 and an object with id/text/dueDate/done:false/createdAt,High,Critical,Not run
+3,API - Create,Create without dueDate (optional),API running,POST /todos/create with {"text":"No date"},Returns 201 and dueDate must be null,High,Critical,Not run
+4,API - Create,Create without text (required field),API running,POST /todos/create with {"dueDate":"2026-12-31"} and no text,Returns 400,High,High,Not run
+5,API - Create,Exceed 10-item limit (if validated in backend),10 items already created,POST /todos/create with any text,Returns 400 or 422,High,Medium,Not run
+6,API - Edit,Edit text of an existing item,Item created,PUT /todos/edit/:id with {"text":"New text"},Returns 200 and text updated,High,Critical,Not run
+7,API - Edit,Edit dueDate of an existing item,Item created,PUT /todos/edit/:id with {"dueDate":"2026-12-31"},Returns 200 and dueDate updated,High,Critical,Not run
+8,API - Edit,Edit non-existent item,API running,PUT /todos/edit/fake-id with {"text":"test"},Returns 404,High,High,Not run
+9,API - Done,Mark item as done,Item created with done=false,PATCH /todos/done/:id with {"done":true},Returns 200 and done:true,High,Critical,Not run
+10,API - Done,Unmark item (done:false),Item created with done=true,PATCH /todos/done/:id with {"done":false},Returns 200 and done:false,High,Critical,Not run
+11,API - Delete,Delete existing item,Item created,DELETE /todos/delete/:id,Returns 204 and item no longer appears in GET /todos/list,High,Critical,Not run
+12,API - Delete,Delete non-existent item,API running,DELETE /todos/delete/fake-id,Returns 404,High,High,Not run
+13,E2E - UI,Add simple task,App running with no tasks,Open the page; type text in the input; click "Add",Task appears in the list,High,Critical,Not run
+14,E2E - UI,Add task with due date,App running with no tasks,Open the page; type text and select a date; click "Add",Task appears with the due date displayed,High,Critical,Not run
+15,E2E - UI,Do not add when text field is empty,App running with no tasks,Open the page; leave text field empty; click "Add",No task is added (optional error message),High,High,Not run
+16,E2E - UI,Task counter and 10-task limit,App running with no tasks,Add 10 tasks; verify "Add" button is disabled and counter shows 10/10,Counter shows "10/10" and Add button is disabled,High,High,Not run
+17,E2E - UI,Mark task as completed,1 task added,Click the task checkbox,Task is shown as completed (strikethrough text or check icon),High,Critical,Not run
+18,E2E - UI,Edit task via UI,1 task added,Click edit; change text; confirm,Old text disappears and new text is shown,High,Critical,Not run
+19,E2E - UI,Delete task via UI,1 task added,Click delete,Task is removed from the list,High,Critical,Not run
+20,E2E - UI,Persistence after reload,1 task added,Reload the page,Task is still visible,High,Critical,Not run
+21,E2E - UI,Sort by text,3 tasks with different texts,Select sort by text (A–Z),List is displayed in ascending alphabetical order,High,Medium,Not run
+22,E2E - UI,Sort by date,3 tasks with different dates,Select sort by date (ascending),List is displayed in ascending date order,High,Medium,Not run
+23,E2E - UI,Initial empty state,Open the page with no tasks,Open the page,Empty state message is displayed,High,Medium,Not run
+24,E2E - UI,Loading spinner,During page load,Open the page,Spinner is visible while loading and hidden afterwards,High,Low,Not run
