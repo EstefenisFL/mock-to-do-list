@@ -13,7 +13,7 @@ export class TodoPage {
     this.inputText      = page.locator('[data-test="new-task-text"]');
     this.inputDate      = page.locator('[data-test="new-task-date"]');
     this.addButton      = page.locator('[data-test="add-task-button"]');
-    this.todoItems      = page.locator('[data-test="todo-item"]');
+    this.todoItems      = page.locator('[data-test="todo-list"] [data-test="todo-item"]');
     this.todoCounter    = page.locator('[data-test="task-count"]');
     this.emptyState     = page.locator('[data-test="empty-state"]');
     this.limitHint      = page.locator('[data-test="limit-hint"]');
@@ -53,10 +53,10 @@ async markDone(text: string) {
   async editTodo(currentText: string, newText: string) {
     const item = this.getTodoByText(currentText);
     await item.locator('[data-test="edit-button"]').click();
-    const editInput = item.locator('[data-test="edit-text-input"]');
+    const editInput = this.page.locator('[data-test="edit-task-text"]');
     await editInput.clear();
     await editInput.fill(newText);
-    await item.locator('[data-test="save-edit-button"]').click();
+    await this.page.locator('[data-test="save-edit-button"]').click();
   }
 
   
@@ -66,8 +66,8 @@ async markDone(text: string) {
   }
 
   
-  async sortBy(field: 'text' | 'dueDate') {
-    await this.page.locator(`[data-test="sort-${field}"]`).click();
+  async sortBy(field: 'text' | 'due-date') {
+    await this.page.locator(`[data-test="sort-by-${field}"]`).click();
   }
 
   

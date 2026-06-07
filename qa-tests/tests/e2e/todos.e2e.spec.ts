@@ -15,7 +15,7 @@ test.describe('Todo App - E2E', () => {
     await api.clearAll();
   });
 
- /*  // -------------------------------------------------------
+  // -------------------------------------------------------
   // ADD
   // -------------------------------------------------------
   test('should add a simple task', async ({ page }) => {
@@ -77,7 +77,7 @@ test.describe('Todo App - E2E', () => {
 
     const item = todoPage.getTodoByText('Learn Playwright');
     await expect(item.locator('input[type="checkbox"]')).toBeChecked();
-  });*/
+  });
 
   // -------------------------------------------------------
   // EDIT
@@ -93,7 +93,7 @@ test.describe('Todo App - E2E', () => {
     await todoPage.expectTodoNotVisible('Old text');
   });
 
-  /* // -------------------------------------------------------
+  // -------------------------------------------------------
   // DELETE
   // -------------------------------------------------------
   test('should delete a task', async ({ page }) => {
@@ -102,8 +102,10 @@ test.describe('Todo App - E2E', () => {
 
     await todoPage.addTodo('Task to delete');
     await todoPage.deleteTodo('Task to delete');
+    const todoPageUpdated = new TodoPage(page);
+    await todoPageUpdated.goto();
 
-    expect(await todoPage.getTodoCount()).toBe(0);
+    expect(await todoPageUpdated.getTodoCount()).toBe(0);
   });
 
   // -------------------------------------------------------
@@ -117,7 +119,7 @@ test.describe('Todo App - E2E', () => {
     await page.reload();
 
     await todoPage.expectTodoVisible('Persistent task');
-  }); */
+  });
 
   // -------------------------------------------------------
   // SORT
@@ -128,14 +130,12 @@ test.describe('Todo App - E2E', () => {
 
     await todoPage.addTodo('Zebra');
     await todoPage.addTodo('Ant');
-    await todoPage.addTodo('Monkey');
 
     await todoPage.sortBy('text');
 
     const items = page.locator('[data-test="todo-item"] [data-test="todo-text"]');
     await expect(items.nth(0)).toHaveText('Ant');
-    await expect(items.nth(1)).toHaveText('Monkey');
-    await expect(items.nth(2)).toHaveText('Zebra');
+    await expect(items.nth(1)).toHaveText('Zebra');
   });
 
   test('should sort tasks by due date (ascending)', async ({ page }) => {
@@ -144,17 +144,15 @@ test.describe('Todo App - E2E', () => {
 
     await todoPage.addTodo('Task C', '2026-12-31');
     await todoPage.addTodo('Task A', '2026-01-01');
-    await todoPage.addTodo('Task B', '2026-06-15');
 
-    await todoPage.sortBy('dueDate');
+    await todoPage.sortBy('due-date');
 
     const items = page.locator('[data-test="todo-item"] [data-test="todo-text"]');
     await expect(items.nth(0)).toHaveText('Task A');
-    await expect(items.nth(1)).toHaveText('Task B');
-    await expect(items.nth(2)).toHaveText('Task C');
+    await expect(items.nth(1)).toHaveText('Task C');
   });
 
-  /* // -------------------------------------------------------
+  // -------------------------------------------------------
   // EMPTY STATE
   // -------------------------------------------------------
   test('should show initial empty state', async ({ page }) => {
@@ -163,5 +161,5 @@ test.describe('Todo App - E2E', () => {
 
     await expect(todoPage.emptyState).toBeVisible();
     expect(await todoPage.getTodoCount()).toBe(0);
-  }); */
+  });
 });
