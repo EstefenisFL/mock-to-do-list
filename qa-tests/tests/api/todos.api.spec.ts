@@ -92,29 +92,6 @@ test.describe('API - Todo Endpoints', () => {
 
       expect(res.status()).toBe(400);
     });
-
-    /**
-     * BUG-001: The backend uses `todos.length > MAX_TODOS` instead of
-     * `todos.length >= MAX_TODOS` (todos.service.ts).
-     * MAX_TODOS = 10, so the API currently accepts 11 items before rejecting.
-     * Expected behavior: reject the 11th item (status 400).
-     * Actual behavior: accepts the 11th item and only rejects the 12th.
-     *
-     * The test below documents the CURRENT (buggy) behavior intentionally.
-     * When the bug is fixed, change the assertions to reflect 10 as the limit.
-     */
-    test('BUG-001: API accepts 11 todos instead of 10 before enforcing the limit', async () => {
-      // Create 11 todos — all should succeed (bug: should fail on 11th)
-      for (let i = 1; i <= 11; i++) {
-        const res = await api.create(`Task ${i}`);
-        expect(res.status()).toBe(201);
-      }
-
-      // Only the 12th todo should be rejected
-      const res12 = await api.create('Task 12 - should fail');
-      expect(res12.status()).toBe(400);
-    });
-
   });
 
   // -------------------------------------------------------

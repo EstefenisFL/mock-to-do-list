@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Buy groceries at the supermarket",
+    "dueDate": "2026-06-10"
+  },
+  {
+    "text": "Pay electricity bill",
+    "dueDate": "2026-06-15"
+  },
+  {
+    "text": "Read a chapter of a book",
+    "dueDate": null
+  },
+  {
+    "text": "Walk the dog in the evening",
+    "dueDate": "2026-06-11"
+  },
+  {
+    "text": "Call mom",
+    "dueDate": null
+  },
+  {
+    "text": "Finish mock Todo tests documentation",
+    "dueDate": "2026-06-20"
+  },
+  {
+    "text": "Clean the kitchen",
+    "dueDate": "2026-06-09"
+  },
+  {
+    "text": "Schedule dentist appointment",
+    "dueDate": "2026-07-01"
+  },
+  {
+    "text": "Refactor backend service",
+    "dueDate": null
+  },
+  {
+    "text": "Review pull requests",
+    "dueDate": "2026-06-08"
+  },
+  {
+    "text": "Prepare weekly status report",
+    "dueDate": "2026-06-12"
+  },
+  {
+    "text": "Watch a tech talk",
+    "dueDate": null
+  }
+]

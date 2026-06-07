@@ -8,17 +8,15 @@ export class TodoPage {
   readonly todoCounter: Locator;
   readonly emptyState: Locator;
   readonly limitHint: Locator;
-  readonly loadingSpinner: Locator;
 
   constructor(readonly page: Page) {
     this.inputText      = page.locator('[data-test="new-task-text"]');
     this.inputDate      = page.locator('[data-test="new-task-date"]');
     this.addButton      = page.locator('[data-test="add-task-button"]');
     this.todoItems      = page.locator('[data-test="todo-item"]');
-    this.todoCounter    = page.locator('[data-test="todo-counter"]');
+    this.todoCounter    = page.locator('[data-test="task-count"]');
     this.emptyState     = page.locator('[data-test="empty-state"]');
     this.limitHint      = page.locator('[data-test="limit-hint"]');
-    this.loadingSpinner = page.locator('[data-test="loading-spinner"]');
   }
 
   
@@ -39,10 +37,11 @@ export class TodoPage {
   }
 
   
-  async markDone(text: string) {
-    const item = this.getTodoByText(text);
-    await item.locator('[data-test="todo-done-checkbox"]').check();
-  }
+async markDone(text: string) {
+  const item = this.getTodoByText(text);
+  const checkbox = item.locator('input[type="checkbox"]');
+  await checkbox.check();
+}
 
   
   async unmarkDone(text: string) {
