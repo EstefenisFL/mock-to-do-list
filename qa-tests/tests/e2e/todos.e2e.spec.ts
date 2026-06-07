@@ -131,6 +131,10 @@ test.describe('Todo App - E2E', () => {
     await todoPage.addTodo('Zebra');
     await todoPage.addTodo('Ant');
 
+    await expect(
+    page.locator('[data-test="todo-item"]').nth(1)
+  ).toBeVisible();
+
     await todoPage.sortBy('text');
 
     const items = page.locator('[data-test="todo-item"] [data-test="todo-text"]');
@@ -144,6 +148,10 @@ test.describe('Todo App - E2E', () => {
 
     await todoPage.addTodo('Task C', '2026-12-31');
     await todoPage.addTodo('Task A', '2026-01-01');
+
+    await expect(
+    page.locator('[data-test="todo-item"]').nth(1)
+  ).toBeVisible();
 
     await todoPage.sortBy('due-date');
 

@@ -67,7 +67,9 @@ async markDone(text: string) {
 
   
   async sortBy(field: 'text' | 'due-date') {
-    await this.page.locator(`[data-test="sort-by-${field}"]`).click();
+    const sortButton = this.page.locator(`[data-test="sort-by-${field}"]`);
+    await sortButton.waitFor({ state: 'visible', timeout: 10000 });
+    await sortButton.click();
   }
 
   
