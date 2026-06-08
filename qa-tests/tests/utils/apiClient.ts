@@ -38,17 +38,4 @@ export class ApiClient {
       await this.delete(todo.id);
     }
   }
-
-  // Clears all todos and recreates them from a seed JSON file via the API.
-  async seedFromFile(relativeSeedPath: string) {
-    const fullPath = path.resolve(__dirname, '../../..', relativeSeedPath);
-    const raw = fs.readFileSync(fullPath, 'utf-8');
-    const items = JSON.parse(raw) as { text: string; dueDate?: string | null }[];
-
-    await this.clearAll();
-
-    for (const item of items) {
-      await this.create(item.text, item.dueDate ?? undefined);
-    }
-  }
 }
